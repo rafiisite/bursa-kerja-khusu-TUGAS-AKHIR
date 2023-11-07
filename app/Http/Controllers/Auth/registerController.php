@@ -33,24 +33,23 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
-        // Checking if the email already exists
         if (User::where('email', $request->email)->exists()) {
             return redirect()->back()->with('error', 'Maaf, email Anda sudah terdaftar.');
         }
-
-        // Checking if password and confirmation do not match
         if ($request->password !== $request->password_confirmation) {
             return redirect()->back()->with('error', 'Password tidak sama.');
+        }
+        if (strlen($request->password) < 8) {
+            return redirect()->back()->with('error', 'Password must be at least 8 characters long');
         }
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'user', 
         ]);
 
-        // Redirect to a specific route after successful registration
         return redirect()->route('login')->with('success', 'Registration successful! Please log in.');
     }
 }

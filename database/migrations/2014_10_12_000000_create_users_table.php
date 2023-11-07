@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Hash;
 
-return new class extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,11 +19,18 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone_number')->nullable(); 
-            $table->enum('role', ['admin', 'user'])->default('user');
+            $table->enum('role', ['admin', 'user']); 
             $table->string('profile_image_path')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
+
+        \App\Models\User::create([
+            'name' => 'ahmad rafi',
+            'email' => 'rafia9005@gmail.com',
+            'password' => Hash::make('ahmadrafi01'),
+            'role' => 'admin' 
+        ]);
     }
 
     /**
@@ -32,4 +40,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
     }
-};
+}

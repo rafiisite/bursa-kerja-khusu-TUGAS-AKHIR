@@ -110,10 +110,10 @@
                                 <div class="avatar">
                                     @if ($user->profile_image_path)
                                         <img src="{{ Storage::url($user->profile_image_path) }}" alt="user-avatar"
-                                            class="w-px-40 h-auto rounded-circle" />
+                                            class="rounded-circle" height="40" width="40" />
                                     @else
                                         <img src="/images/profile-default.png" alt="default-avatar"
-                                            class="w-px-40 h-auto rounded-circle" />
+                                            class="w-px-40 h-px-40 rounded-circle" />
                                     @endif
                                 </div>
                             </a>
@@ -125,7 +125,8 @@
                                                 <div class="avatar">
                                                     @if ($user->profile_image_path)
                                                         <img src="{{ Storage::url($user->profile_image_path) }}"
-                                                            alt="user-avatar" class="w-px-40 h-auto rounded-circle" />
+                                                            alt="user-avatar" class="rounded-circle" height="40"
+                                                            width="40" />
                                                     @else
                                                         <img src="/images/profile-default.png" alt="default-avatar"
                                                             class="w-px-40 h-auto rounded-circle" />
@@ -226,7 +227,12 @@
                                                         {{ $user->email }}
                                                     </td>
                                                     <td>
-                                                        {{ $user->phone_number }}
+                                                        @if ($user->phone_number)
+                                                            <p> {{ $user->phone_number }}</p>
+                                                        @else
+                                                            <p>Belum ada nomer</p>
+                                                        @endif
+
                                                     </td>
                                                     <td>
                                                         @if ($user->role === 'admin')
